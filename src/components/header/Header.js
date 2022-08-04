@@ -8,7 +8,7 @@ function Header() {
     <div className='header'>
         <img 
             className='header__logo'
-            src={require('../assets/logo.png')}
+            src={require('../../assets/logo.png')}
         />
 
         <div className='header__search'>
