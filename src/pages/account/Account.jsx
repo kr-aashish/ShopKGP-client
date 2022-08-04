@@ -1,7 +1,7 @@
 import { Avatar } from "@mui/material";
 import React from "react";
 import PrimarySearchAppBar from "../../components/appbar/Appbar";
-import Header from "../../components/Header";
+import Header from "../../components/header/Header";
 
 export default function Account() {
   return (
