@@ -6,11 +6,11 @@ import { darkTheme } from "./themes/dark";
 import { lightTheme } from "./themes/light";
 import Header from "./components/header/Header.js";
 import Home from "./pages/home/Home.js";
+import PrimarySearchAppBar from "./components/appbar/Appbar";
 
 function App() {
   return (
     <div className="app">
-      <Header />
       <ThemeProvider theme={lightTheme}>
         <Routes>
           <Route path="/" element={<Home />} />
