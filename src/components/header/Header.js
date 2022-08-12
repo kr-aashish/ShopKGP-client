@@ -3,6 +3,7 @@ import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   let navigate = useNavigate();
@@ -46,10 +47,13 @@ const Header = () => {
         </div>
       </div>
 
+      <Link to="/checkout">
       <div className="header__optionBasket">
+        {/* <div onClick={()=> goToPath("/checkout")}> <ShoppingBasketIcon /> </div> */}
         <ShoppingBasketIcon />
         <span className="header__optionLineTwo header__basketCount">0</span>
       </div>
+      </Link>
     </div>
   );
 };
