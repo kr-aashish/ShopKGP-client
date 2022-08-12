@@ -7,20 +7,22 @@ function Product({id, title, image, price, rating}) {
     <div className='product'>
 
         <div className='product__info'> 
-            <p>The lean startup</p> 
+            <p>{title}</p> 
             <p className='product__price'> 
                 <small>₹</small>
-                <strong>200</strong>
+                <strong>{price}</strong>
             </p>
         </div>
 
-        <div className='product__rating'>
-            <p>⭐</p>
-            <p>⭐</p>
-            <p>⭐</p>
-        </div>
+        <img src={image} alt=' '/>
 
-        <img src="https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX325_BO1,204,203,200_.jpg"/>
+        <div className="product__rating">
+          {Array(rating)
+            .fill()
+            .map((_, i) => (
+              <p>🌟</p>
+            ))}
+        </div>
 
         <button>Add to cart</button>
 
