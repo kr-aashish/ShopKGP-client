@@ -13,8 +13,6 @@ export default function Account() {
                 <AccountNavbar/>
                 <AccountContent/>
             </Stack>
-
-
         </Box>
     );
 }

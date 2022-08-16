@@ -1,13 +1,12 @@
 import {createTheme} from "@mui/material/styles";
-import {green} from "@mui/material/colors";
 
 export const lightTheme = createTheme({
     palette: {
         primary: {
-            main: "rgba(26,55,82,0.71)",
+            main: "rgb(19, 94, 198)",
         },
         secondary: {
-            main: green[500],
+            main: "#45A8D9",
         },
     },
 });
