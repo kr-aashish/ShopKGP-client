@@ -4,8 +4,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
+import { useStateValue } from "../../StateProvider";
 
 const Header = () => {
+  
+  const [{basket}, dispatch] = useStateValue();
+
   let navigate = useNavigate();
 
   const goToPath = (path) => {
@@ -49,9 +53,8 @@ const Header = () => {
 
       <Link to="/checkout">
       <div className="header__optionBasket">
-        {/* <div onClick={()=> goToPath("/checkout")}> <ShoppingBasketIcon /> </div> */}
         <ShoppingBasketIcon />
-        <span className="header__optionLineTwo header__basketCount">0</span>
+        <span className="header__optionLineTwo header__basketCount">{basket?.length}</span>  {/* optional chaining..won't freak out in case of error */}
       </div>
       </Link>
     </div>
