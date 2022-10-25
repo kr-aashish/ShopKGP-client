@@ -7,16 +7,18 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
 import reducer, { initialState } from "./reducer";
 import { StateProvider } from "./StateProvider";
-
+import { UserContextProvider } from "./user_context/Context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <StateProvider initialState={initialState} reducer={reducer}> 
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </StateProvider>
+    <UserContextProvider>
+      <StateProvider initialState={initialState} reducer={reducer}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </StateProvider>
+    </UserContextProvider>
   </React.StrictMode>
 );
 
