@@ -19,6 +19,7 @@ import {
   LoginStart,
   LoginSuccess,
 } from "../../user_context/Action";
+import Logo from "../../components/Logo";
 
 export default function SignInSide() {
   const navigate = useNavigate();
@@ -26,11 +27,11 @@ export default function SignInSide() {
   const goToPath = (path) => {
     navigate(path);
   };
-  const { dispatch, state } = React.useContext(UserContext);
+  const { user_dispatch, state } = React.useContext(UserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    dispatch(LoginStart());
+    user_dispatch(LoginStart());
     const data = new FormData(event.currentTarget);
     try {
       const email = data.get("email");
@@ -41,9 +42,9 @@ export default function SignInSide() {
       // });
 
       if (true) {
-        dispatch(LoginSuccess({ email: "chandan", password: "djajsdl" }));
+        user_dispatch(LoginSuccess({ email: "chandan", password: "djajsdl" }));
       } else {
-        dispatch(LoginError({}));
+        user_dispatch(LoginError({}));
       }
     } catch (err) {}
   };
@@ -68,39 +69,17 @@ export default function SignInSide() {
           backgroundPosition: "center",
         }}
       />
-      <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square>
-        <Box
-          sx={{
-            marginTop: { xs: "20px", sm: "50px" },
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Box
-            component="img"
-            sx={{
-              width: "60%",
-              display: { xs: "none", sm: "block" },
-              cursor: "pointer",
-              alignSelf: "center",
-            }}
-            onClick={() => goToPath("/")}
-            alt="Buy N Sell"
-            src={require("../../assets/logo.png")}
-          />
-          <Box
-            component="img"
-            sx={{
-              width: 34,
-              display: { xs: "block", sm: "none" },
-              cursor: "pointer",
-            }}
-            onClick={() => goToPath("/")}
-            alt="Buy N Sell"
-            src={require("../../assets/cart.png")}
-          />
-        </Box>
+      <Grid
+        item
+        xs={12}
+        sm={12}
+        md={5}
+        pt={10}
+        component={Paper}
+        elevation={6}
+        square
+      >
+        <Logo />
         <Box
           sx={{
             my: 8,

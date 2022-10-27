@@ -11,6 +11,7 @@ import SignInSide from "./pages/login/login";
 import { useContext } from "react";
 import { UserContext } from "./user_context/Context";
 import { ProductDetails } from "./pages/ProductDetails";
+import AddProduct from "./pages/AddProduct";
 
 function App() {
   const { state } = useContext(UserContext);
@@ -38,6 +39,10 @@ function App() {
         <Route
           path="/checkout"
           element={state?.user ? <Checkout /> : <SignInSide />}
+        />
+        <Route
+          path="/add"
+          element={state?.user ? <AddProduct /> : <SignInSide />}
         />
         <Route
           path="/detail/:id"

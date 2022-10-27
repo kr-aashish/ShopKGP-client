@@ -3,6 +3,8 @@ import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStateValue } from "../../StateProvider";
+import PrimaryButton from "../buttons/PrimaryButton";
+import SecondaryButton from "../buttons/SecondaryButton";
 import CartIcon from "../Icons/CartIcon";
 import QuantityButton from "../product_details/QuantityButton";
 import "./Product.css";
@@ -51,54 +53,11 @@ function Product({ id, title, image, price, rating }) {
         justifyContent={"space-evenly"}
         width="100%"
       >
-        <Button
-          onClick={addToBasket}
-          variant="contained"
-          sx={{
-            marginTop: "15px",
-            textTransform: "capitalize",
-            maxWidth: "40%",
-            padding: "10px 40px",
-            backgroundColor: "var(--orange)",
-            color: "#fff",
-
-            fontWeight: 700,
-            borderRadius: "5px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "15px",
-            flex: 1,
-            transition: "0.3s",
-            boxShadow: "0px 20px 20px -8px var(--pale-orange)",
-          }}
-        >
-          Add to Cart
-        </Button>
-        <Button
+        <PrimaryButton onClick={addToBasket} text="add to cart" />
+        <SecondaryButton
           onClick={() => goToPath("/detail/21")}
-          variant="contained"
-          sx={{
-            marginTop: "15px",
-            textTransform: "capitalize",
-            maxWidth: "30%",
-            padding: "10px 40px",
-            backgroundColor: "var(--pale-orange)",
-            color: "#000",
-
-            fontWeight: 700,
-            borderRadius: "5px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "15px",
-            flex: 1,
-            transition: "0.3s",
-            boxShadow: "0px 0px",
-          }}
-        >
-          details
-        </Button>
+          text="details"
+        />
       </Box>
     </div>
   );

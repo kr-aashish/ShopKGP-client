@@ -1,39 +1,54 @@
+import { Box, Rating } from "@mui/material";
 import React from "react";
 import { useStateValue } from "../../StateProvider";
-import "./CheckoutProduct.css"
+import PrimaryButton from "../buttons/PrimaryButton";
+import SecondaryButton from "../buttons/SecondaryButton";
+import "./CheckoutProduct.css";
 
 function CheckoutProduct({ id, image, title, price, rating, hideButton }) {
-    const [{ basket }, dispatch] = useStateValue();
+  const [{ basket }, dispatch] = useStateValue();
 
-    const removeFromBasket = () => {
-        dispatch({
-            type: "REMOVE_FROM_BASKET",
-            id: id,
-        })
-    }
-        return (
-            <div className='checkoutProduct'>
-                <img className='checkoutProduct__image' src={image} />
-    
-                <div className='checkoutProduct__info'>
-                    <p className='checkoutProduct__title'>{title}</p>
-                    <p className="checkoutProduct__price">
-                        <small>$</small>
-                        <strong>{price}</strong>
-                    </p>
-                    <div className="checkoutProduct__rating">
-                        {Array(rating)
-                        .fill()
-                        .map((_, i) => (
-                            <p>🌟</p>
-                        ))}
-                    </div>
-                    {!hideButton && (
-                        <button onClick={removeFromBasket}>Remove from Basket</button>
-                    )}
-                </div>
-            </div>
-        )
+  const removeFromBasket = () => {
+    dispatch({
+      type: "REMOVE_FROM_BASKET",
+      id: id,
+    });
+  };
+  return (
+    <Box
+      display={"flex"}
+      alignItems="center"
+      mt={3}
+      mb={3}
+      mr={4}
+      border={1}
+      p={5}
+      borderRadius={5}
+      borderColor="#ABA9A9"
+    >
+      <img
+        src={image}
+        alt=""
+        style={{
+          width: "100px",
+          height: "100px",
+          objectFit: "cover",
+          marginRight: "30px",
+        }}
+      />
+      <Box>
+        <p>{title}</p>
+        <Rating
+          name="read-only"
+          value={rating}
+          readOnly
+          style={{ marginTop: "10px" }}
+        />
+
+        <SecondaryButton onClick={removeFromBasket} text="remove from cart" />
+      </Box>
+    </Box>
+  );
 }
 
 export default CheckoutProduct;

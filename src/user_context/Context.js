@@ -10,7 +10,7 @@ const INITIAL_USER_STATE = {
 export const UserContext = createContext(INITIAL_USER_STATE);
 
 export const UserContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(Reducer, INITIAL_USER_STATE);
+  const [state, user_dispatch] = useReducer(Reducer, INITIAL_USER_STATE);
 
   useEffect(() => {
     console.log("SETTING LOCAL STORAGE");
@@ -18,7 +18,7 @@ export const UserContextProvider = ({ children }) => {
   }, [state.user]);
 
   return (
-    <UserContext.Provider value={{ state, dispatch }}>
+    <UserContext.Provider value={{ state, user_dispatch }}>
       {children}
     </UserContext.Provider>
   );

@@ -12,6 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
+import Logo from "../../components/Logo";
 
 export function Copyright(props) {
   return (
@@ -57,38 +58,8 @@ export default function SignUp() {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <Box
-        sx={{
-          marginTop: { xs: "20px", sm: "50px" },
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Box
-          component="img"
-          sx={{
-            width: "80%",
-            display: { xs: "none", sm: "block" },
-            cursor: "pointer",
-            alignSelf: "center",
-          }}
-          onClick={() => goToPath("/")}
-          alt="Buy N Sell"
-          src={require("../../assets/logo.png")}
-        />
-        <Box
-          component="img"
-          sx={{
-            width: 34,
-            display: { xs: "block", sm: "none" },
-            cursor: "pointer",
-          }}
-          onClick={() => goToPath("/")}
-          alt="Buy N Sell"
-          src={require("../../assets/cart.png")}
-        />
-      </Box>
+      <Box mt={10} />
+      <Logo />
       <Box
         sx={{
           marginTop: 6,

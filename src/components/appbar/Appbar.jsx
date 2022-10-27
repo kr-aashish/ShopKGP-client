@@ -16,8 +16,9 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { useNavigate } from "react-router-dom";
 import { useStateValue } from "../../StateProvider";
 import { ShoppingCart } from "@mui/icons-material";
-import logo from "../../assets/logo.svg";
+
 import { Divider } from "@mui/material";
+import Logo from "../Logo";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -164,29 +165,7 @@ export default function PrimarySearchAppBar() {
           {/*>*/}
           {/*    BuyNSellKGP*/}
           {/*</Typography>*/}
-          <Box
-            component="img"
-            sx={{
-              width: 150,
-              display: { xs: "none", sm: "block" },
-              cursor: "pointer",
-            }}
-            onClick={() => goToPath("/")}
-            alt="Buy N Sell"
-            src={logo}
-          />
-          <Box
-            component="img"
-            sx={{
-              width: 34,
-              display: { xs: "block", sm: "none" },
-              cursor: "pointer",
-            }}
-            onClick={() => goToPath("/")}
-            alt="Buy N Sell"
-            src={require("../../assets/cart.png")}
-          />
-
+          <Logo />
           <Search
             style={{
               backgroundColor: "white",
