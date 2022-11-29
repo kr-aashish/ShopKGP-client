@@ -19,36 +19,39 @@ function App() {
 
   return (
     <ThemeProvider theme={lightTheme}>
-      {state?.user ? <PrimarySearchAppBar /> : <></>}
+      {state?.isLoggedIn ? <PrimarySearchAppBar /> : <></>}
       <Routes>
         <Route
           exact
           path="/signup"
-          element={state?.user ? <Home /> : <SignUp />}
+          element={state?.isLoggedIn ? <Home /> : <SignUp />}
         />
         <Route
           exact
           path="/login"
-          element={state?.user ? <Home /> : <SignInSide />}
+          element={state?.isLoggedIn ? <Home /> : <SignInSide />}
         />
         <Route
           exact
           path="/account/:id"
-          element={state?.user ? <Account /> : <SignInSide />}
+          element={state?.isLoggedIn ? <Account /> : <SignInSide />}
         />
         <Route
           path="/checkout"
-          element={state?.user ? <Checkout /> : <SignInSide />}
+          element={state?.isLoggedIn ? <Checkout /> : <SignInSide />}
         />
         <Route
           path="/add"
-          element={state?.user ? <AddProduct /> : <SignInSide />}
+          element={state?.isLoggedIn ? <AddProduct /> : <SignInSide />}
         />
         <Route
           path="/detail/:id"
-          element={state?.user ? <ProductDetails /> : <SignInSide />}
+          element={state?.isLoggedIn ? <ProductDetails /> : <SignInSide />}
         />
-        <Route path="/" element={state?.user ? <Home /> : <SignInSide />} />
+        <Route
+          path="/"
+          element={state?.isLoggedIn ? <Home /> : <SignInSide />}
+        />
       </Routes>
     </ThemeProvider>
   );

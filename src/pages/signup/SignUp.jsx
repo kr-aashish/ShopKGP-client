@@ -13,6 +13,9 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../components/Logo";
+import axios from "axios";
+import { UserContext } from "../../user_context/Context";
+import { LoginError, LoginSuccess } from "../../user_context/Action";
 
 export function Copyright(props) {
   return (
@@ -24,7 +27,7 @@ export function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="http://iitkgp.ac.in">
-        BuyNSell
+        Shopkgp
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -37,6 +40,7 @@ const max = 5;
 
 export default function SignUp() {
   const [value, setValue] = React.useState(1);
+  const { user_dispatch, state } = React.useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -44,15 +48,28 @@ export default function SignUp() {
     navigate(path);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-      year: data.get("year"),
-      roll: data.get("roll"),
-    });
+
+    const email = data.get("email");
+    const password = data.get("password");
+    const year = data.get("year");
+    const roll = data.get("roll");
+    try {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}register`, {
+        email,
+        password,
+      });
+      console.log(res);
+      if (res.status === 200) {
+        user_dispatch(LoginSuccess({ token: res.data.token }));
+      } else {
+        user_dispatch(LoginError(null));
+      }
+    } catch (err) {
+      user_dispatch(LoginError(null));
+    }
   };
 
   return (

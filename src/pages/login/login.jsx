@@ -20,9 +20,22 @@ import {
   LoginSuccess,
 } from "../../user_context/Action";
 import Logo from "../../components/Logo";
+import { API_URL } from "../../constants";
+import axios from "axios";
+import { Alert, Snackbar } from "@mui/material";
 
 export default function SignInSide() {
   const navigate = useNavigate();
+
+  const [open, setOpen] = React.useState(-1);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(-1);
+  };
 
   const goToPath = (path) => {
     navigate(path);
@@ -36,22 +49,72 @@ export default function SignInSide() {
     try {
       const email = data.get("email");
       const password = data.get("password");
-      // const res = await axios.post(`${API_URL}/api/auth/login`, {
-      //   email,
-      //   password,
-      // });
 
-      if (true) {
-        user_dispatch(LoginSuccess({ email: "chandan", password: "djajsdl" }));
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}login`, {
+        email,
+        password,
+      });
+      console.log(res);
+      if (res.status === 200) {
+        setOpen(0);
+        user_dispatch(LoginSuccess({ token: res.data.token }));
       } else {
-        user_dispatch(LoginError({}));
+        setOpen(1);
+        user_dispatch(LoginError(null));
       }
-    } catch (err) {}
+    } catch (err) {
+      setOpen(1);
+    }
+  };
+
+  const errorMessage = () => {
+    switch (open) {
+      case 0:
+        return (
+          <Snackbar
+            open={open === 0}
+            autoHideDuration={4000}
+            onClose={handleClose}
+          >
+            <Alert
+              severity="success"
+              onClose={handleClose}
+              sx={{ width: "100%" }}
+            >
+              Successfully loggedIn!
+            </Alert>
+          </Snackbar>
+        );
+
+      case 1:
+        return (
+          <Snackbar
+            open={open === 1}
+            autoHideDuration={4000}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            onClose={handleClose}
+          >
+            <Alert
+              severity="error"
+              onClose={handleClose}
+              sx={{ width: "100%" }}
+            >
+              Something went wrong! Please try again.
+            </Alert>
+          </Snackbar>
+        );
+      default:
+        return <></>;
+    }
   };
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
       <CssBaseline />
+      {errorMessage()}
       <Grid
         item
         xs={false}
@@ -59,7 +122,7 @@ export default function SignInSide() {
         md={7}
         sx={{
           backgroundImage:
-            "url(https://assets.telegraphindia.com/telegraph/2021/Mar/1614718781_iit.jpg)",
+            "url(https://neilpatel.com/wp-content/uploads/2017/12/ecommerce-seo-tips.jpg)",
           backgroundRepeat: "no-repeat",
           backgroundColor: (t) =>
             t.palette.mode === "light"
