@@ -1,10 +1,10 @@
-import {createTheme} from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 
 export const lightTheme = createTheme({
-    palette: {
-        primary: {
-            main: "#2364E2",
-            green: "#037832",
-        }
+  palette: {
+    primary: {
+      main: "hsl(26, 100%, 55%)",
+      green: "hsl(25, 100%, 94%)",
     },
+  },
 });
