@@ -16,6 +16,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { useNavigate } from "react-router-dom";
 import { useStateValue } from "../../StateProvider";
 import { ShoppingCart } from "@mui/icons-material";
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 import { Divider } from "@mui/material";
 import Logo from "../Logo";
@@ -195,6 +196,11 @@ export default function PrimarySearchAppBar() {
             {/*        <MailIcon/>*/}
             {/*    </Badge>*/}
             {/*</IconButton>*/}
+            <IconButton>
+              <Badge onClick = {() => goToPath("/seller")}>
+                <AddCircleOutlineIcon style={{ color: "black" }} />
+              </Badge>
+            </IconButton>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"

@@ -8,10 +8,12 @@ import Checkout from "./pages/checkout/Checkout";
 import PrimarySearchAppBar from "./components/appbar/Appbar";
 import SignUp from "./pages/signup/SignUp";
 import SignInSide from "./pages/login/login";
+import SellerInterface from "./pages/seller/Seller"
 import { useContext } from "react";
 import { UserContext } from "./user_context/Context";
 import { ProductDetails } from "./pages/ProductDetails";
 import AddProduct from "./pages/AddProduct";
+import { Sell } from "@mui/icons-material";
 
 function App() {
   const { state } = useContext(UserContext);
@@ -51,6 +53,10 @@ function App() {
         <Route
           path="/"
           element={state?.isLoggedIn ? <Home /> : <SignInSide />}
+        />
+        <Route
+          path="/seller"
+          element={state?.isLoggedIn ? <SellerInterface/> : <SignInSide />}
         />
       </Routes>
     </ThemeProvider>
