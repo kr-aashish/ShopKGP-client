@@ -20,6 +20,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 import { Divider } from "@mui/material";
 import Logo from "../Logo";
+import SellerButton from "../buttons/SellerButton";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -196,11 +197,15 @@ export default function PrimarySearchAppBar() {
             {/*        <MailIcon/>*/}
             {/*    </Badge>*/}
             {/*</IconButton>*/}
-            <IconButton>
+            
+            <SellerButton onClick={() => goToPath("/seller")} text="Seller Tool"/>
+            
+            {/* <IconButton>
               <Badge onClick = {() => goToPath("/seller")}>
                 <AddCircleOutlineIcon style={{ color: "black" }} />
               </Badge>
-            </IconButton>
+            </IconButton> */}
+            
             <IconButton
               size="large"
               aria-label="show 17 new notifications"

@@ -11,13 +11,21 @@ import {
   Grid,
   IconButton,
   makeStyles,
+  MenuItem,
   TextField,
-  Typography
+  Typography,
+  Select
 } from "@material-ui/core";
 import {
   AddCircleOutline as AddCircleOutlineIcon,
+  FormatBoldSharp,
   PhotoCamera as PhotoCameraIcon
 } from "@material-ui/icons";
+import axios from 'axios';
+import devConfig from '../../config/dev';
+import Swal from 'sweetalert2';
+import AWS from 'aws-sdk';
+
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -76,7 +84,9 @@ function SellerInterface() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("");
+  // const [imageFile, setImageFile] = useState("");
+  const [category, setCategory] = useState("");
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -90,12 +100,106 @@ function SellerInterface() {
     setPrice(event.target.value);
   };
 
-  const handleImageChange = (event) => {
-    setImage(URL.createObjectURL(event.target.files[0]));
+  const handleCategoryChange = (event) => {
+    setCategory(event.target.value);
   };
 
+  const s3 = new AWS.S3({
+    accessKeyId: 'AKIAVO4R5EPKIYI3H7HH',
+    secretAccessKey: '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',
+    region: 'ap-northeast-1'
+  });
+
+  // const handleImageChange = (event) => {
+  //   setImage(URL.createObjectURL(event.target.files[0]));
+  //   setImageFile(event.target.files[0]);
+  // };
+
+  const handleImageChange = async (event) => {
+    try {
+      let timerInterval;
+      Swal.fire({
+        title: 'Uploading your media',
+        html: 'It will be complete in <b></b> milliseconds.',
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading()
+          const b = Swal.getHtmlContainer().querySelector('b')
+          timerInterval = setInterval(() => {
+            b.textContent = Swal.getTimerLeft()
+          }, 100)
+        },
+        willClose: () => {
+          clearInterval(timerInterval)
+        }
+      }).then((result) => {
+        /* Read more about handling dismissals below */
+        if (result.dismiss === Swal.DismissReason.timer) {
+          console.log('I was closed by the timer')
+        }
+      })
+
+      const file = event.target.files[0];
+      // setImage(URL.createObjectURL(file));
+      // setImageFile(file);
+      const fileName = `${Date.now()}-${file.name}`;
+      const params = {
+        Bucket: 'shopkgp-media',
+        Key: fileName,
+        Body: file,
+        ACL: 'public-read',
+      };
+      await s3.upload(params).promise();
+      console.log('File uploaded successfully');
+
+      const imageUrl = `https://shopkgp-media.s3.amazonaws.com/${fileName}`;
+      setImage(imageUrl);
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
   const handleAddProduct = () => {
-    // TODO: Implement product upload logic
+
+    const prodApiEndpoint = devConfig.apiEndpoints.createProduct;
+
+    axios.post(prodApiEndpoint, {
+      itemId: "",
+      sellerId: "",
+      name: title, 
+      description: description,
+      price: price, 
+      imageUrl: image, 
+      category: category  
+    })      
+    .then((response) => {
+        console.log(response);
+        Swal.fire({
+          icon: 'success',
+          title: 'Product added successfully!',
+          iconColor: 'orange',
+          showConfirmButton: false,
+          timer: 2500
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          title: "Oops!",
+          text: "Please add all the required details",
+          icon: "error",
+          button: "Ok",
+        });
+      })
+      .finally (() => {
+        setTitle("");
+        setDescription("");
+        setPrice("");
+        setImage("");
+        setCategory("");
+      })
   };
 
   return (
@@ -134,6 +238,24 @@ function SellerInterface() {
                 onChange={handlePriceChange}
                 margin="normal"
               />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Box mt={2} mb={1}>
+                <Typography variant="subtitle1" style={{color: 'grey', fontSize: '16px'}}>
+                  Category
+                </Typography>
+              </Box>
+              <Select
+                labelId="category-label"
+                id="category"
+                value={category}
+                onChange={handleCategoryChange}
+                fullWidth
+              >
+                <MenuItem value="books">Book</MenuItem>
+                <MenuItem value="electronics">Electronics</MenuItem>
+                <MenuItem value="misc">Misc</MenuItem>
+              </Select>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -183,7 +305,6 @@ function SellerInterface() {
                 </label>
               </Card>
             </Grid>
-            <Grid item xs={12} md={6} />
           </Grid>
         </CardContent>
       </Card>
@@ -192,7 +313,7 @@ function SellerInterface() {
           variant="contained"
           color="primary"
           onClick={handleAddProduct}
-          disabled={!title || !description || !price || !image}
+          // disabled={!title || !description || !price || !image || !category}
           className={classes.addButton}
         >
           Add Product
@@ -200,6 +321,7 @@ function SellerInterface() {
       </Box>
     </Container>
   );
+  
 }  
 
 export default SellerInterface;

@@ -14,6 +14,7 @@ import { UserContext } from "./user_context/Context";
 import { ProductDetails } from "./pages/ProductDetails";
 import AddProduct from "./pages/AddProduct";
 import { Sell } from "@mui/icons-material";
+import ErrorPage from "./pages/error/Error";
 
 function App() {
   const { state } = useContext(UserContext);
@@ -57,6 +58,10 @@ function App() {
         <Route
           path="/seller"
           element={state?.isLoggedIn ? <SellerInterface/> : <SignInSide />}
+        />
+        <Route
+          path="/error"
+          element={<ErrorPage/>}
         />
       </Routes>
     </ThemeProvider>

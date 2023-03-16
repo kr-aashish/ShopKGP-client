@@ -30,8 +30,8 @@ function CheckoutProduct({ id, image, title, price, rating, hideButton }) {
         src={image}
         alt=""
         style={{
-          width: "100px",
-          height: "100px",
+          height: "auto",
+          maxHeight: "200px",
           objectFit: "cover",
           marginRight: "30px",
         }}

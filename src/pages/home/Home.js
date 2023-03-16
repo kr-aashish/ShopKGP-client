@@ -5,6 +5,7 @@ import { Grid } from "@mui/material";
 import { data } from "../../data/products";
 import { Box } from "@mui/system";
 import PrimarySearchAppBar from "../../components/appbar/Appbar";
+import Footer from "../../components/footer/Footer";
 
 import devConfig from '../../config/dev';
 import { useState, useEffect} from 'react';
@@ -26,7 +27,7 @@ function Home() {
               });
           } catch (err) {
               setError(err);
-          } finally {
+          } finally { 
               setLoading(false);
           }
       };
@@ -41,20 +42,13 @@ function Home() {
   if (error) {
       return <>Error: {error.message}</>
   }
-  console.log(allProducts);
+  console.log("allProducts ", allProducts);
+  console.log("data ", data);
 
-  // return (
-  //     <> 
-  //         {allProducts.map((value, key) => {
-  //             return <>{value.name}</>;
-  //         })}
-  //     </>
-  // );
-  
   return (
     <>
       <Grid container paddingTop={"5px"}>
-        {data.map((v, index) => (
+        {allProducts.map((v, index) => (
           <Grid
             key={index}
             xs={12}
@@ -65,15 +59,21 @@ function Home() {
             justifyContent={"center"}
           >
             <Product
-              id={v.id}
-              title={v.title}
-              price={v.price}
-              rating={v.rating}
-              image={v.image}
+              // id={v.id}
+              // title={v.title}
+              // price={v.price}
+              // rating={v.rating}
+              // image={v.image}
+              id={v.itemId}
+              title={v.description}
+              price={parseInt(v.price)}
+              rating={5}
+              image={v.imageUrl}
             />
           </Grid>
         ))}
       </Grid>
+      <Footer/>
     </>
   );
 }

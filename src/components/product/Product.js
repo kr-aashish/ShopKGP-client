@@ -17,7 +17,7 @@ function Product({ id, title, image, price, rating }) {
     navigate(path);
   };
 
-  console.log("This is the basket ", basket);
+  // console.log("This is the basket ", basket);
 
   const addToBasket = () => {
     //dispatch an item item into the data layer

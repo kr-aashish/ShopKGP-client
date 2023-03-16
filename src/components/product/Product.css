@@ -14,6 +14,8 @@
 .product:hover {
   -webkit-box-shadow: 1px 1px 11px rgba(81, 81, 81, 0.4);
   -moz-box-shadow: 1px 1px 11px rgba(81, 81, 81, 0.4);
+  transform: scale(1.086);
+  transition: transform 0.3s ease-in-out;
 }
 
 .product__rating {

@@ -50,11 +50,14 @@ export default function SignInSide() {
       const email = data.get("email");
       const password = data.get("password");
 
+      console.log("This is the response", email, password);
+
       const res = await axios.post(`${process.env.REACT_APP_API_URL}login`, {
         email,
         password,
       });
-      console.log(res);
+
+
       if (res.status === 200) {
         setOpen(0);
         user_dispatch(LoginSuccess({ token: res.data.token }));
