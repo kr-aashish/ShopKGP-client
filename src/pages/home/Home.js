@@ -6,7 +6,51 @@ import { data } from "../../data/products";
 import { Box } from "@mui/system";
 import PrimarySearchAppBar from "../../components/appbar/Appbar";
 
+import devConfig from '../../config/dev';
+import { useState, useEffect} from 'react';
+import axios from 'axios';
+
 function Home() {
+
+  const [allProducts, setAllProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const prodApiEndpoint = devConfig.apiEndpoints.product;
+
+  useEffect(() => {
+      const fetchData = async () => {
+          try {
+              axios.get(prodApiEndpoint).then((response) => {
+                  setAllProducts(response.data);
+              });
+          } catch (err) {
+              setError(err);
+          } finally {
+              setLoading(false);
+          }
+      };
+
+      fetchData();
+  }, []);
+
+  if (loading) {
+      return <>Loading...</>
+  }
+
+  if (error) {
+      return <>Error: {error.message}</>
+  }
+  console.log(allProducts);
+
+  // return (
+  //     <> 
+  //         {allProducts.map((value, key) => {
+  //             return <>{value.name}</>;
+  //         })}
+  //     </>
+  // );
+  
   return (
     <>
       <Grid container paddingTop={"5px"}>
