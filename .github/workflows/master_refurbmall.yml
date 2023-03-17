@@ -23,7 +23,8 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          process.env.CI = false && npm install --legacy-peer-deps
+          $env:CI = "false"
+          npm install --legacy-peer-deps
           npm run build --if-present
       
       - name: Upload artifact for deployment job
