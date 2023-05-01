@@ -8,6 +8,7 @@ import { ThemeProvider } from "@emotion/react";
 import reducer, { initialState } from "./reducer";
 import { StateProvider } from "./StateProvider";
 import { UserContextProvider } from "./user_context/Context";
+import { Auth0Provider } from "@auth0/auth0-react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,7 +16,15 @@ root.render(
     <UserContextProvider>
       <StateProvider initialState={initialState} reducer={reducer}>
         <BrowserRouter>
-          <App />
+            {/*<Auth0Provider*/}
+            {/*    domain="dev-lh5cfk3uf0tevnl6.us.auth0.com"*/}
+            {/*    clientId="mvAUG5oGJAn2yRI9ErjOooe0yFpMH1qk"*/}
+            {/*    authorizationParams={{*/}
+            {/*        redirect_uri: 'https://shopkgp.netlify.app'*/}
+            {/*    }}*/}
+            {/*>*/}
+                <App />
+            {/*</Auth0Provider>*/}
         </BrowserRouter>
       </StateProvider>
     </UserContextProvider>

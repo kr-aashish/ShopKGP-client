@@ -11,7 +11,8 @@ import { useNavigate } from "react-router-dom";
 function Checkout() {
   const [{ basket, user }, dispatch] = useStateValue();
   const { user_dispatch, state } = useContext(UserContext);
-  console.log(basket);
+  // console.log(basket);
+  // console.log("User metadata", state);
 
   const navigate = useNavigate();
 
@@ -24,7 +25,8 @@ function Checkout() {
       <Box flex={{ sm: 12, md: 4 }}>
 
         <h3 style={{ marginTop: "10px", color: "#504E4E" }}>
-          Hello, {state.user?.email}
+          {/*Hello, {state.user?.email}*/}
+            Hello, {state.data.metadata.name}
         </h3>
 
         <h2 style={{ marginTop: "10px", color: "#312F2F" }}>
@@ -38,6 +40,9 @@ function Checkout() {
             image={item.image}
             price={item.price}
             rating={item.rating}
+            description={item.description}
+            category={item.category}
+            sellerId={item.sellerId}
 
             // id={item.itemId}
             // title={item.description}

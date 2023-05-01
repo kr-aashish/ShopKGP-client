@@ -4,7 +4,6 @@ import MobileGallery from "../components/product_details/MobileGallery";
 import QuantityButton from "../components/product_details/QuantityButton";
 import CartIcon from "../components/Icons/CartIcon";
 import { Container } from "@mui/material";
-import PrimarySearchAppBar from "../components/appbar/Appbar";
 
 export const ProductDetails = () => {
   const [quant, setQuant] = useState(0);

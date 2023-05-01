@@ -1,7 +1,6 @@
 import { ThemeProvider } from "@emotion/react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Account from "./pages/account/Account";
 import { lightTheme } from "./themes/light";
 import Home from "./pages/home/Home.js";
 import Checkout from "./pages/checkout/Checkout";
@@ -15,10 +14,13 @@ import { ProductDetails } from "./pages/ProductDetails";
 import AddProduct from "./pages/AddProduct";
 import { Sell } from "@mui/icons-material";
 import ErrorPage from "./pages/error/Error";
+import orderConfirmationPage  from "./pages/account/orderPlaced";
+import AccountNavbar from "./pages/account/AccountNavbar";
+import OrderConfirmationPage from "./pages/account/orderPlaced";
 
 function App() {
   const { state } = useContext(UserContext);
-  console.log(state);
+  // console.log(state);
 
   return (
     <ThemeProvider theme={lightTheme}>
@@ -37,7 +39,7 @@ function App() {
         <Route
           exact
           path="/account/:id"
-          element={state?.isLoggedIn ? <Account /> : <SignInSide />}
+          element={state?.isLoggedIn ? <AccountNavbar /> : <SignInSide />}
         />
         <Route
           path="/checkout"
@@ -61,7 +63,11 @@ function App() {
         />
         <Route
           path="/error"
-          element={<ErrorPage/>}
+          element={state?.isLoggedIn ? <ErrorPage/> : <SignInSide />}
+        />
+        <Route
+            path="/success"
+            element={state?.isLoggedIn ? <OrderConfirmationPage/> : <SignInSide />}
         />
       </Routes>
     </ThemeProvider>

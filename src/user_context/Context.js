@@ -13,7 +13,7 @@ export const UserContextProvider = ({ children }) => {
   const validateToken = async () => {
     console.log("validate token", state.data?.token);
     try {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}welcome`, {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/welcome`, {
         headers: {
           "x-access-token": state.data?.token ?? "",
         },
@@ -34,8 +34,14 @@ export const UserContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log("SETTING LOCAL STORAGE");
+    // console.log("SETTING LOCAL STORAGE");
     // validateToken();
+    // set user
+    localStorage.setItem(
+        "data",
+        JSON.stringify({ ...state})
+    );
+
   }, [state]);
 
   return (

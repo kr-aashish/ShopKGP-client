@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./Subtotal.css";
 import CurrencyFormat from "react-currency-format";
 import { useStateValue } from "../../StateProvider";
@@ -15,6 +15,11 @@ import PrimaryButton from "../buttons/PrimaryButton";
 import StripeCheckout from "react-stripe-checkout";
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { loadStripe } from '@stripe/stripe-js';
+import {UserContext} from "../../user_context/Context";
+// import dotenv from 'dotenv';
+// dotenv.config();
+const stripePromise = loadStripe('pk_test_51MuCNiSBkSkzOkBhFpBbWVmbisUCRctfozyelUn9MXSaZj4SwIaqDZfoJoBpPpl0i8cYcAXzc0bKNdMBqIaQxSVb00KYjmav0K');
 
 function ElementTable({ data }) {
   return (
@@ -32,30 +37,39 @@ function ElementTable({ data }) {
     </>
   );
 }
+
 function Subtotal() {
-  const [{ basket }, dispatch] = useStateValue();
+    const [{ basket }, dispatch] = useStateValue();
+    const { user_dispatch, state } = useContext(UserContext);
 
-  const handleToken = async (token, address) => {
-    const product = {
-      name: "Sample product",
-      price: 200,
-      description: "This is a sample product"
-    };
+    const userMetadata = state.data.metadata;
+    const stripeItems = basket.map(item => ({
+        quantity: 1,
 
-    try {
-      const response = await axios.post("http://localhost:3001/checkout", {token, product, address});
-      console.log(response.status);
+        price_data: {
+            currency: "inr",
+            unit_amount: item.price * 100,
+            product_data: {
+                name: item.title,
+                images: [item.image],
+                description: item.description,
+            }
+        }
+    }));
+    const createCheckoutSession = async () => {
+        const stripe = await stripePromise;
 
-      //clear the basket post successful checkout
-    } catch (error) {
-      Swal.fire({
-        icon: 'success',
-        title: 'Your order has been placed!',
-        showConfirmButton: false,
-        timer: 2500
-      });
-    } 
-  }
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/checkout`, {
+            userMetadata,
+            stripeItems,
+            basket
+        });
+        console.log(response);
+
+        const result = await stripe.redirectToCheckout({sessionId: response.data.id});
+        if (result.error)
+            alert(result.error.message);
+    }
 
   return (
     <Box
@@ -74,7 +88,7 @@ function Subtotal() {
       />
       <ElementTable
         data={{
-          first: "GST and tax.",
+          first: "Shipping Charges",
           second: `Rs. ${(getBasketTotal(basket) * 0.03).toFixed(2)}`,
         }}
       />
@@ -88,18 +102,12 @@ function Subtotal() {
         }}
       />
       <p style={{ marginTop: "10px", fontSize: "12px" }}>
-        *Total price includes shipping, and service charges
+        *Total price excludes shipping, and service charges
       </p>
-      <StripeCheckout
-        stripeKey="pk_test_51MiJLISGFdXiDdCYLBEIOLFv6lSfw7pK2zV5VceYPUvxKYSiFY4rdVAJMdNzUqrQWkhsxlx72qrDxGOtpKUEvlpp00kfIxV7mg"
-        token={handleToken}
-        amount={getBasketTotal(basket) * 1.03}
-        name="Payment Gateway"
-        billingAddress
-        shippingAddress
-      >
-        <PrimaryButton text={"proceed"} />
-      </StripeCheckout>
+
+    <PrimaryButton
+        text={"Checkout"}
+        onClick = {createCheckoutSession } />
     </Box>
   );
 }

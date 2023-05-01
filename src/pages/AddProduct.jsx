@@ -14,7 +14,7 @@ const AddProduct = () => {
       setSelectedFile(event.target.files[0]);
       setIsFilePicked(true);
       setfileURL(URL.createObjectURL(event.target.files[0]));
-      console.log(URL.createObjectURL(event.target.files[0]));
+      // console.log(URL.createObjectURL(event.target.files[0]));
     }
   };
   return (
