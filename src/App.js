@@ -2,21 +2,21 @@ import { ThemeProvider } from "@emotion/react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { lightTheme } from "./themes/light";
-import Home from "./pages/home/Home.js";
-import Checkout from "./pages/checkout/Checkout";
-import PrimarySearchAppBar from "./components/appbar/Appbar";
-import SignUp from "./pages/signup/SignUp";
-import SignInSide from "./pages/login/login";
-import SellerInterface from "./pages/seller/Seller"
+import Home from "./views/home/Home.js";
+import Checkout from "./views/checkout/Checkout";
+import PrimarySearchAppBar from "./shared/components/appbar/Appbar";
+import SignUp from "./views/auth/signupForm/SignUp";
+import SignInSide from "./views/auth/loginForm/login";
+import SellerInterface from "./views/seller/Seller"
 import { useContext } from "react";
-import { UserContext } from "./user_context/Context";
-import { ProductDetails } from "./pages/ProductDetails";
-import AddProduct from "./pages/AddProduct";
+import { UserContext } from "./context/authContext/Context";
+import { ProductDetails } from "./views/ProductDetails";
+import AddProduct from "./views/AddProduct";
 import { Sell } from "@mui/icons-material";
-import ErrorPage from "./pages/error/Error";
-import orderConfirmationPage  from "./pages/account/orderPlaced";
-import AccountNavbar from "./pages/account/AccountNavbar";
-import OrderConfirmationPage from "./pages/account/orderPlaced";
+import ErrorPage from "./views/error/Error";
+import orderConfirmationPage  from "./views/account/orderPlaced";
+import AccountNavbar from "./views/account/AccountNavbar";
+import OrderConfirmationPage from "./views/account/orderPlaced";
 
 function App() {
   const { state } = useContext(UserContext);
