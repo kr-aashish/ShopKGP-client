@@ -22,16 +22,10 @@ import {
 import Logo from "../../components/Logo";
 import axios from "axios";
 import { Alert, Snackbar } from "@mui/material";
-import FacebookIcon from '@mui/icons-material/Facebook';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { FcGoogle } from 'react-icons/fc';
 import facebook from '../../assets/facebook.svg'
 import instagram from '../../assets/instagram.svg'
-// import linkedin from '../../assets/linkedin.svg'
-// import github from '../../assets/github.svg'
-import { LoginSocialFacebook, LoginSocialGoogle, LoginSocialInstagram} from 'reactjs-social-login';
-// import { useAuth0 } from '@auth0/auth0-react';
+import { LoginSocialFacebook, LoginSocialInstagram} from 'reactjs-social-login';
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
 
@@ -60,14 +54,10 @@ export default function SignInSide() {
       const email = data.get("email");
       const password = data.get("password");
 
-      // console.log("This is the response", email, password);
-
       const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
         email,
         password,
       });
-
-      // console.log("This is the user metadata", res.data);
 
       if (res.status === 200) {
         setOpen(0);
@@ -105,8 +95,6 @@ export default function SignInSide() {
       appId: "1:606043630129:web:0e98c4505a46dd1d6f0310",
       measurementId: "G-BJWT63JVYB"
     };
-
-    // const { user, loginWithRedirect } = useAuth0();
 
     const firebaseApp = new initializeApp(firebaseConfig);
     const auth = getAuth(firebaseApp);
@@ -178,11 +166,6 @@ export default function SignInSide() {
         sx={{
           backgroundImage:
             "url(https://neilpatel.com/wp-content/uploads/2017/12/ecommerce-seo-tips.jpg)",
-          backgroundRepeat: "no-repeat",
-          backgroundColor: (t) =>
-            t.palette.mode === "light"
-              ? t.palette.grey[50]
-              : t.palette.grey[900],
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -264,17 +247,6 @@ export default function SignInSide() {
               </Grid>
             </Grid>
 
-            {/*<Box sx={styles.root}>*/}
-            {/*  <Button sx={styles.button}>*/}
-            {/*    <FcGoogle sx={styles.icon} />*/}
-            {/*    Sign in with Google*/}
-            {/*  </Button>*/}
-            {/*  <Button sx={{ ...styles.button, backgroundColor: '#3b5998', color: '#fff' }}>*/}
-            {/*    <img src={facebook} alt="Facebook logo" sx={styles.logo} />*/}
-            {/*    Sign in with Facebook*/}
-            {/*  </Button>*/}
-            {/*</Box>*/}
-
             <Box
                 sx={{
                   // my: 8,
@@ -285,32 +257,12 @@ export default function SignInSide() {
                   alignItems: "center",
                 }}
             >
-              {/*<Avatar sx={{ m: 1, bgcolor: "primary.main" }}>*/}
-              {/*  <LockOutlinedIcon />*/}
-              {/*</Avatar>*/}
               <Typography component="h1" variant="h5">
                 Social Login
               </Typography>
             </Box>
 
             <Box sx={{ display: 'flex', m: 2, justifyContent: 'center', mt: 1}}>
-
-              {/*<LoginSocialGoogle*/}
-              {/*    // clientId={process.env.GOOGLE_CLIENT_ID || ''}*/}
-              {/*    // onLoginStart={onLoginStart}*/}
-              {/*    client_Id='627668627856-9khhovnrs3m3ll3cs0m8d6hn7coihk64.apps.googleusercontent.com'*/}
-              {/*    // redirect_url={process.env.REACT_APP_HOST_URL}*/}
-              {/*    scope="openid profile email"*/}
-              {/*    discoveryDocs="claims_supported"*/}
-              {/*    access_type="offline"*/}
-              {/*    onResolve={({ provider, data }) => {*/}
-              {/*      console.log(provider, data);*/}
-              {/*    }}*/}
-              {/*    onReject={err => {*/}
-              {/*      console.log(err);*/}
-              {/*    }}*/}
-              {/*>*/}
-              {/*</LoginSocialGoogle>*/}
 
               <Button sx={{fontSize: "3.5rem" }} onClick={handleGoogleLogin}>
                 <FcGoogle/>
@@ -335,11 +287,6 @@ export default function SignInSide() {
                   client_id='1676187482836082'
                   client_secret='8ed95b1e49476a13bd13e7c57c65c9b4'
                   redirect_uri='https://shopkgp.netlify.app/'
-                  // onLoginStart={}
-                  // onLogoutSuccess={}
-                  // onResolve={({ provider, data }: IResolveParams) => {
-                  //   console.log(provider, data)
-                  // }}
                   scopes={['user_profile', 'user_media']}
                   onResolve={(response) => {
                     console.log(response);
@@ -354,12 +301,6 @@ export default function SignInSide() {
                 </Button>
               </LoginSocialInstagram>
 
-              {/*<Avatar sx={{ m: 1 }}>*/}
-              {/*  <img src={linkedin} />*/}
-              {/*</Avatar>*/}
-              {/*<Avatar sx={{ m: 1 }}>*/}
-              {/*  <img src={github} />*/}
-              {/*</Avatar>*/}
             </Box>
 
             <Copyright sx={{ mt: 5 }} />
