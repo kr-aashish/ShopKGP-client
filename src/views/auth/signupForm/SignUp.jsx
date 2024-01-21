@@ -48,10 +48,6 @@ export default function SignUp() {
 
   const navigate = useNavigate();
 
-  const goToPath = (path) => {
-    navigate(path);
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -87,21 +83,6 @@ export default function SignUp() {
       <CssBaseline />
       <Box mt={10} />
       <Logo />
-
-      {/*<Box sx={{display: 'flex', m: 2, justifyContent: 'center', mt: 3}}>*/}
-      {/*  <Avatar sx={{ m: 1, bgcolor: "grey" }}>*/}
-      {/*    <GoogleIcon />*/}
-      {/*  </Avatar>*/}
-      {/*  <Avatar sx={{ m: 1, bgcolor: "grey" }}>*/}
-      {/*    <FacebookIcon />*/}
-      {/*  </Avatar>*/}
-      {/*  <Avatar sx={{ m: 1, bgcolor: "grey" }}>*/}
-      {/*    <LinkedInIcon />*/}
-      {/*  </Avatar>*/}
-      {/*  <Avatar sx={{ m: 1, bgcolor: "grey" }}>*/}
-      {/*    <GitHubIcon />*/}
-      {/*  </Avatar>*/}
-      {/*</Box>*/}
 
       <Box
         sx={{
